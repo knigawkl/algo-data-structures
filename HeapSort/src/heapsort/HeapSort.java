@@ -14,14 +14,11 @@ public class HeapSort {
         }
 
         for (int i = n - 1; i > 0; i--) {
-            int temp = arrayToSort[0];
-            arrayToSort[0] = arrayToSort[i];
-            arrayToSort[i] = temp;
+            swap(arrayToSort, 0, i);
 
             HeapSort.validateMaxHeap(arrayToSort, --n, 0);
         }
     }
-
     //check whather a heap is a max heap
     private static void validateMaxHeap(int[] array, int heapSize, int parentIndex) {
 
@@ -37,11 +34,15 @@ public class HeapSort {
         }
 
         if (maxIndex != parentIndex) {
-            int temp = array[maxIndex];
-            array[maxIndex] = array[parentIndex];
-            array[parentIndex] = temp;
+            swap(array, maxIndex, parentIndex);
             validateMaxHeap(array, heapSize, maxIndex);
         }
+    }
+
+    private static void swap(int[] array, int index1, int index2) {
+        int temp = array[index1];
+        array[index1] = array[index2];
+        array[index2] = temp;
     }
 
     public static void main(String[] args) {
