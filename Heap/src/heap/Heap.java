@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Heap<T extends Comparable<T>> implements HeapInterface<T> {
 
-    ArrayList<T> array;
-    
+    private final ArrayList<T> array;
+
     public Heap(T[] objects) {
         array = new ArrayList<>();
         for (T object : objects) {
@@ -13,7 +13,7 @@ public class Heap<T extends Comparable<T>> implements HeapInterface<T> {
         }
     }
 
-    //puts an item onto the heap as the last leaf
+    //puts an item onto the heap as the last leaf, then rebuilds the heap
     @Override
     public void put(T item) {
         array.add(item);
@@ -72,10 +72,18 @@ public class Heap<T extends Comparable<T>> implements HeapInterface<T> {
         return removed;
 
     }
-    
+
+    public int getSize() {
+        return array.size();
+    }
+
     @Override
     public String toString() {
         return this.array.toString();
     }
 
+    public ArrayList<T> getArrayList() {
+        return array;
+    }
+    
 }
