@@ -1,7 +1,6 @@
 package generic_heap_sort;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Heap <T extends Comparable<T>> implements HeapInterface<T>{
     ArrayList<T> elements;
@@ -15,11 +14,7 @@ public class Heap <T extends Comparable<T>> implements HeapInterface<T>{
         elements = heapTable;
         heapSorter = new HeapSorter();
     }
-    
-    public void validateMaxHeap(){
-        
-    }
-    
+
     @Override
     public void put(T item) {
         elements.add(item);
