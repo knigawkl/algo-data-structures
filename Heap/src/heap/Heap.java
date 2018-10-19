@@ -23,7 +23,7 @@ public class Heap<T extends Comparable<T>> implements HeapInterface<T> {
         while (currentIndex > 0) {
             int parentIndex = (currentIndex - 1) / 2;
 
-            if (array.get(currentIndex).compareTo(array.get(parentIndex)) == 1) {
+            if (array.get(currentIndex).compareTo(array.get(parentIndex)) > 0) {
                 T temp = array.get(currentIndex);
                 array.set(currentIndex, array.get(parentIndex));
                 array.set(parentIndex, temp);
@@ -48,7 +48,7 @@ public class Heap<T extends Comparable<T>> implements HeapInterface<T> {
         int currentIndex = 0;
         while (currentIndex < array.size()) {
             int leftChildIndex = 2 * currentIndex + 1;
-            int rightChildIndex = 2 * currentIndex + 1;
+            int rightChildIndex = 2 * currentIndex + 2;
 
             if (leftChildIndex >= array.size()) {
                 break;

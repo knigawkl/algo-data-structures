@@ -1,5 +1,7 @@
 package custommap;
 
+/* this is heavily based on Sedgewick's implementation */
+
 public class CustomMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
 
     private static final boolean RED = true;
@@ -7,7 +9,6 @@ public class CustomMap<K extends Comparable<K>, V> implements MapInterface<K, V>
 
     private Node root;
 
-    //nested class representing a node
     private class Node {
 
         private K key;
