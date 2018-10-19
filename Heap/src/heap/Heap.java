@@ -4,29 +4,28 @@ import java.util.ArrayList;
 
 public class Heap<T extends Comparable<T>> implements HeapInterface<T> {
 
-    private final ArrayList<T> array;
+    private final ArrayList<T> elems;
 
     public Heap(T[] objects) {
-        array = new ArrayList<>();
+        elems = new ArrayList<>();
         for (T object : objects) {
             put(object);
         }
     }
 
-    //puts an item onto the heap as the last leaf, then rebuilds the heap
     @Override
     public void put(T item) {
-        array.add(item);
+        elems.add(item);
 
-        int currentIndex = array.size() - 1;
+        int currentIndex = elems.size() - 1;
 
         while (currentIndex > 0) {
             int parentIndex = (currentIndex - 1) / 2;
 
-            if (array.get(currentIndex).compareTo(array.get(parentIndex)) > 0) {
-                T temp = array.get(currentIndex);
-                array.set(currentIndex, array.get(parentIndex));
-                array.set(parentIndex, temp);
+            if (elems.get(currentIndex).compareTo(elems.get(parentIndex)) > 0) {
+                T temp = elems.get(currentIndex);
+                elems.set(currentIndex, elems.get(parentIndex));
+                elems.set(parentIndex, temp);
             } else {
                 break;
             }
@@ -34,35 +33,34 @@ public class Heap<T extends Comparable<T>> implements HeapInterface<T> {
         }
     }
 
-    //pops the root element from the heap
     @Override
     public T pop() {
-        if (array.isEmpty()) {
+        if (elems.isEmpty()) {
             return null;
         }
 
-        T removed = array.get(0);
-        array.set(0, array.get(array.size() - 1));
-        array.remove(array.size() - 1);
+        T removed = elems.get(0);
+        elems.set(0, elems.get(elems.size() - 1));
+        elems.remove(elems.size() - 1);
 
         int currentIndex = 0;
-        while (currentIndex < array.size()) {
+        while (currentIndex < elems.size()) {
             int leftChildIndex = 2 * currentIndex + 1;
             int rightChildIndex = 2 * currentIndex + 2;
 
-            if (leftChildIndex >= array.size()) {
+            if (leftChildIndex >= elems.size()) {
                 break;
             }
 
             int maxIndex = leftChildIndex;
 
-            if (rightChildIndex < array.size() && array.get(maxIndex).compareTo(array.get(rightChildIndex)) < 0) {
+            if (rightChildIndex < elems.size() && elems.get(maxIndex).compareTo(elems.get(rightChildIndex)) < 0) {
                 maxIndex = rightChildIndex;
             }
-            if (array.get(currentIndex).compareTo(array.get(maxIndex)) < 0) {
-                T temp = array.get(maxIndex);
-                array.set(maxIndex, array.get(currentIndex));
-                array.set(currentIndex, temp);
+            if (elems.get(currentIndex).compareTo(elems.get(maxIndex)) < 0) {
+                T temp = elems.get(maxIndex);
+                elems.set(maxIndex, elems.get(currentIndex));
+                elems.set(currentIndex, temp);
                 currentIndex = maxIndex;
             } else {
                 break;
@@ -74,16 +72,16 @@ public class Heap<T extends Comparable<T>> implements HeapInterface<T> {
     }
 
     public int getSize() {
-        return array.size();
+        return elems.size();
     }
 
     @Override
     public String toString() {
-        return this.array.toString();
+        return this.elems.toString();
     }
 
     public ArrayList<T> getArrayList() {
-        return array;
+        return elems;
     }
     
 }
