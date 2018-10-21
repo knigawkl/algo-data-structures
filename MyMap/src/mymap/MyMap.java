@@ -2,86 +2,100 @@ package mymap;
 
 public class MyMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
 
-    private static final boolean RED = true;
-    //private static final boolean BLACK = false;
-    private static final boolean LEFT = true;
-    //private static final boolean RIGHT = false;
+    public static final boolean LEFT = true;
+    public static final boolean RIGHT = false;
+    public static final boolean RED = true;
+    public static final boolean BLACK = true;
+    
+    private Node<K, V> root;
 
-    private Node root;
-
-    private class Node {
-
-        private K key;
-        private V val;
-        private Node parent, left, right;
-        private boolean color;
-
-        Node(K key, V val) {
-            this.key = key;
-            this.val = val;
-            this.color = RED;
-        }
-
-        private Node getChild(boolean side) {
-            return side == LEFT ? parent.left : parent.right;
-        }
-
-        private void setChild(Node newChild, boolean side) {
-            if (side) {
-                this.left = newChild;
-            } else {
-                this.right = newChild;
-            }
-        }
-
-        private boolean isRed() {
-            return color;
-        }
-
-        private void invertColor() {
-            this.color = !color;
-        }
-
-        private void repaintChildren() {
-            this.left.color = !this.left.color;
-            this.right.color = !this.right.color;
-        }
-
+    public MyMap(K key, V val) {
+        root = new Node<>(key, val);
     }
 
-    private Node rotate(Node rotatedDownwards, boolean side) {
+    private Node rotate(Node<K, V> rotatedDownwards, boolean side) {
         Node rotatedUpwards = rotatedDownwards.getChild(!side);
-        rotatedDownwards.setChild(rotatedUpwards.getChild(side), !side);
-        rotatedUpwards.setChild(rotatedUpwards, side);
+        rotatedDownwards.setChild(!side, rotatedUpwards.getChild(side));
+        rotatedUpwards.setChild(side, rotatedDownwards);
 
         changeColorsAfterRotation(rotatedDownwards, rotatedUpwards);
 
         return rotatedUpwards;
     }
 
-    private void changeColorsAfterRotation(Node rotatedDownwards, Node rotatedUpwards) {
-        rotatedUpwards.color = rotatedDownwards.color;
-        rotatedDownwards.color = RED;
+    private void changeColorsAfterRotation(Node<K, V> rotatedDownwards, Node<K, V> rotatedUpwards) {
+        rotatedUpwards.setColor(rotatedDownwards.getColor());
+        rotatedDownwards.setColor(RED);
     }
 
     @Override
-    public void setValue(K key, V value) {
+    public void setValue(K key, V val) {
+        checkForNullArgs(key, val);
+
+        root = setValue(key, val, root);
+
+        if (root.isRed()) {
+            root.invertColor();
+        }
 
     }
 
+    private Node setValue(K key, V val, Node<K, V> subroot) {
+        if (subroot == null) {
+            return new Node<>(key, val);
+        }
+        
+        int cmp = key.compareTo(subroot.getKey());
+        if (cmp == 0) {
+            subroot.setVal(val);
+        } else if (cmp > 0) {
+            subroot.setChild(RIGHT, setValue(key, val, subroot.getChild(RIGHT)));
+        } else {
+            subroot.setChild(LEFT, setValue(key, val, subroot.getChild(LEFT)));
+        } /*
+        if (!subroot.getChild(LEFT).isRed() && subroot.getChild(RIGHT).isRed()) {
+            subroot = rotate(subroot, LEFT);
+        } */
+        if (subroot.getChild(LEFT).getChild(LEFT).isRed() && subroot.getChild(RIGHT).isRed()) {
+            subroot = rotate(subroot, RIGHT);
+        }  /*
+        if (subroot.getChild(LEFT).isRed() && subroot.getChild(RIGHT).isRed()) {
+            subroot.invertColor();
+            subroot.repaintChildren();
+        }
+*/
+        return subroot;
+   }
+
+    //private void findPositionInTheTree
     @Override
-    public V getValue(K key) {
-        Node current = root;
-        while (root != null) {
-            int cmp = key.compareTo(current.key);
+    public V getValue(K searchedKey) {
+        if (searchedKey == null) {
+            throw new IllegalArgumentException("Key cannot be null!");
+        }
+
+        Node<K, V> current = root;
+
+        while (current != null) {
+            int cmp = searchedKey.compareTo(current.getKey());
             if (cmp == 0) {
-                return current.val;
+                return current.getVal();
             } else if (cmp > 0) {
-                current = current.right;
+                current = current.getChild(RIGHT);
             } else if (cmp < 0) {
-                current = current.left;
+                current = current.getChild(LEFT);
             }
         }
+
         return null;
+    }
+
+    private void checkForNullArgs(K key, V val) {
+        if (key == null) {
+            throw new IllegalArgumentException("Key cannot be null!");
+        }
+        if (val == null) {
+            throw new IllegalArgumentException("Value cannot be null");
+        }
     }
 }
