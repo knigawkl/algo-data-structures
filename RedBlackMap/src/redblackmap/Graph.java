@@ -11,36 +11,28 @@ public class Graph {
     public static final int ELEMENTS_TESTED_COUNT = 1000;
     public static final int GAP_BETWEEN_TESTED_ELEMENTS = 10;
 
-    Random random;
+    Random random = new Random();
     RedBlackMap<Integer, Integer> graphed;
     long[] setValueData;
     long[] getValueData;
-
-    public Graph() {
-        random = new Random();
-        graphed = new RedBlackMap(0, 0);
-    }
 
     public void generateSetValueGraph() {
         setValueData = new long[ELEMENTS_TESTED_COUNT / GAP_BETWEEN_TESTED_ELEMENTS];
 
         for (int i = 0; i < TESTS_FOR_EACH_N_COUNT; i++) {
             graphed = new RedBlackMap<>(0, 0);
+            
             for (int j = 0; j < ELEMENTS_TESTED_COUNT; j++) {
-
                 if (j != 0 && j % GAP_BETWEEN_TESTED_ELEMENTS == 0) {
                     int currentIndex = (j / GAP_BETWEEN_TESTED_ELEMENTS);
 
                     long duration = measureTimeOfSettingNewVal();
 
-                    long previousValue = setValueData[currentIndex];
-                    long newValue = previousValue + duration;
-
-                    setValueData[currentIndex] = newValue;
+                    setValueData[currentIndex] += duration;
                 }
             }
         }
-        reorderSetValueData();
+        getAvgTimeOfSetting();
 
         exportSetValueDataToTxt();
     }
@@ -49,8 +41,8 @@ public class Graph {
         getValueData = new long[ELEMENTS_TESTED_COUNT / GAP_BETWEEN_TESTED_ELEMENTS];
         for (int i = 0; i < TESTS_FOR_EACH_N_COUNT; i++) {
             graphed = new RedBlackMap<>(0, 0);
+            
             for (int j = 0; j < ELEMENTS_TESTED_COUNT; j++) {
-
                 if (j != 0 && j % GAP_BETWEEN_TESTED_ELEMENTS == 0) {
                     int currentIndex = (j / GAP_BETWEEN_TESTED_ELEMENTS);
 
@@ -58,14 +50,11 @@ public class Graph {
 
                     long duration = measureTimeOfGettingNewVal();
 
-                    long previousValue = getValueData[currentIndex];
-                    long newValue = previousValue + duration;
-
-                    getValueData[currentIndex] = newValue;
+                    getValueData[currentIndex] += duration;
                 }
             }
         }
-        reorderGetValueData();
+        getAvgTimeOfGetting();
 
         exportGetValueDataToTxt();
     }
@@ -98,19 +87,15 @@ public class Graph {
         }
     }
 
-    private void reorderSetValueData() {
+    private void getAvgTimeOfSetting() {
         for (int n = 0; n < setValueData.length; n++) {
-            long previousValue = setValueData[n];
-            long newValue = previousValue / TESTS_FOR_EACH_N_COUNT;
-            setValueData[n] = newValue;
+            setValueData[n] = setValueData[n] / TESTS_FOR_EACH_N_COUNT;
         }
     }
 
-    private void reorderGetValueData() {
+    private void getAvgTimeOfGetting() {
         for (int n = 0; n < getValueData.length; n++) {
-            long previousValue = getValueData[n];
-            long newValue = previousValue / TESTS_FOR_EACH_N_COUNT;
-            getValueData[n] = newValue;
+            getValueData[n] = getValueData[n] / TESTS_FOR_EACH_N_COUNT;
         }
     }
 
