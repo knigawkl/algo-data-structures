@@ -104,7 +104,7 @@ public class RedBlackMapTest {
         //then
         assertEquals("Placek", tested.getValue("Jacek"));
     }
-    
+
     @Test
     public void testIsTreeHeightBalanced() {
         //given
@@ -113,15 +113,15 @@ public class RedBlackMapTest {
         for (int i = 0, j = 1; i < elemCount; i++) {
             tested.setValue(i, j++);
         }
-        
+
         //when
         int treeHeight = tested.getHeight(tested.getRoot());
-        double maxBalancedHeight = 2 * Math.log(elemCount + 1)/Math.log(2);
+        double maxBalancedHeight = 2 * Math.log(elemCount + 1) / Math.log(2);
 
         //then
         assertTrue(treeHeight <= maxBalancedHeight);
     }
-    
+
     @Test
     public void testIsTreeHeightBalancedRandomKeys() {
         //given
@@ -131,37 +131,36 @@ public class RedBlackMapTest {
         for (int i = 0; i < elemCount; i++) {
             tested.setValue(random.nextInt(), random.nextInt());
         }
-        
+
         //when
         int treeHeight = tested.getHeight(tested.getRoot());
-        double maxBalancedHeight = 2 * Math.log(elemCount + 1)/Math.log(2);
+        double maxBalancedHeight = 2 * Math.log(elemCount + 1) / Math.log(2);
 
-        
         //then
         assertTrue(treeHeight <= maxBalancedHeight);
     }
-    
+
     @Test
     public void testGetHeightOnlyRoot() {
         //given
         RedBlackMap<Integer, Integer> tested = new RedBlackMap<>(1, 3);
-        
+
         //when
         int result = tested.getHeight(tested.getRoot());
-        
+
         //then
         assertEquals(1, result);
     }
-    
+
     @Test
     public void testSettingValueBiggerThanIntegerMaxValue() {
         //given
         RedBlackMap<Integer, Integer> tested = new RedBlackMap<>(1, 3);
         tested.setValue(12, Integer.MAX_VALUE + 1);
-        
+
         //when
         Integer result = tested.getValue(12);
-        
+
         //then
         assertEquals(-2147483648, result, 0);
     }
@@ -177,14 +176,14 @@ public class RedBlackMapTest {
         tested.setValue("y", "y");
         tested.setValue("t", "t");
         tested.setValue("m", "m");
-        
+
         //when
         int blackCounter = tested.countBlackNodesPerPath();
-        
+
         //then
         assertEquals(3, blackCounter);
     }
-    
+
     @Test
     public void testCountBlackNodesPerPath() {
         //given
@@ -193,10 +192,10 @@ public class RedBlackMapTest {
         for (int i = 0, j = 1; i < elemCount; i++) {
             tested.setValue(i, j++);
         }
-        
+
         //when
         int blackCounter = tested.countBlackNodesPerPath();
-        
+
         //then
         assertEquals(3, blackCounter);
     }
