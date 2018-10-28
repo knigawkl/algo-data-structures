@@ -20,17 +20,16 @@ public class Analytics {
         for (int i = 0; i < TESTS_FOR_EACH_N_COUNT; i++) {
             List<Double> analysed = new ArrayList<Double>();
 
-            for (int j = 0; j < ELEMENTS_TESTED_COUNT; j++) {
-                if (j != 0) {
-                    analysed.add(random.nextDouble());
-                    double[] analysedPrim = new double[analysed.size()];
-                    for (int m = 0; m < analysedPrim.length; m++) {
-                        analysedPrim[m] = analysed.get(m).doubleValue();
-                    }
-                    long duration = measureSortingTime(analysedPrim, sortingAlgorithm);
+            for (int j = 1; j < ELEMENTS_TESTED_COUNT; j++) {
 
-                    randomDataSortingResults[j] += duration;
+                analysed.add(random.nextDouble());
+                double[] analysedPrim = new double[analysed.size()];
+                for (int m = 0; m < analysedPrim.length; m++) {
+                    analysedPrim[m] = analysed.get(m).doubleValue();
                 }
+                long duration = measureSortingTime(analysedPrim, sortingAlgorithm);
+
+                randomDataSortingResults[j] += duration;
             }
         }
         getAvgTime(randomDataSortingResults);
@@ -50,17 +49,16 @@ public class Analytics {
         for (int i = 0; i < TESTS_FOR_EACH_N_COUNT; i++) {
             List<Double> analysed = new ArrayList<Double>();
 
-            for (int j = 0; j < ELEMENTS_TESTED_COUNT; j++) {
-                if (j != 0) {
-                    analysed.add((double)j);
-                    double[] analysedPrim = new double[analysed.size()];
-                    for (int m = 0; m < analysedPrim.length; m++) {
-                        analysedPrim[m] = analysed.get(m).doubleValue();
-                    }
-                    long duration = measureSortingTime(analysedPrim, sortingAlgorithm);
+            for (int j = 1; j < ELEMENTS_TESTED_COUNT; j++) {
 
-                    optimisticDataSortingResults[j] += duration;
+                analysed.add((double) j);
+                double[] analysedPrim = new double[analysed.size()];
+                for (int m = 0; m < analysedPrim.length; m++) {
+                    analysedPrim[m] = analysed.get(m).doubleValue();
                 }
+                long duration = measureSortingTime(analysedPrim, sortingAlgorithm);
+
+                optimisticDataSortingResults[j] += duration;
             }
         }
         getAvgTime(optimisticDataSortingResults);
@@ -80,18 +78,18 @@ public class Analytics {
         for (int i = 0; i < TESTS_FOR_EACH_N_COUNT; i++) {
             List<Double> analysed = new ArrayList<Double>();
 
-            for (int j = 0; j < ELEMENTS_TESTED_COUNT; j++) {
-                if (j != 0) {
-                    analysed.add((double)ELEMENTS_TESTED_COUNT - j);
-                    double[] analysedPrim = new double[analysed.size()];
-                    for (int m = 0; m < analysedPrim.length; m++) {
-                        analysedPrim[m] = analysed.get(m).doubleValue();
-                    }
-                    long duration = measureSortingTime(analysedPrim, sortingAlgorithm);
+            for (int j = 1; j < ELEMENTS_TESTED_COUNT; j++) {
 
-                    pessimisticDataSortingResults[j] += duration;
+                analysed.add((double) ELEMENTS_TESTED_COUNT - j);
+                double[] analysedPrim = new double[analysed.size()];
+                for (int m = 0; m < analysedPrim.length; m++) {
+                    analysedPrim[m] = analysed.get(m).doubleValue();
                 }
+                long duration = measureSortingTime(analysedPrim, sortingAlgorithm);
+
+                pessimisticDataSortingResults[j] += duration;
             }
+
         }
         getAvgTime(pessimisticDataSortingResults);
 
@@ -133,5 +131,5 @@ public class Analytics {
             e.printStackTrace();
         }
     }
-    
+
 }
