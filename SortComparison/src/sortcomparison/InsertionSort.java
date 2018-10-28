@@ -16,8 +16,7 @@ public class InsertionSort implements SortingAlgorithm {
             int j = i - 1;
 
             while (j >= 0 && sortedVector[j] > key) {
-                sortedVector[j + 1] = sortedVector[j];
-                j--;
+                sortedVector[j + 1] = sortedVector[j--];
             }
 
             sortedVector[j + 1] = key;

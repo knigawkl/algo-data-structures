@@ -13,10 +13,6 @@ public class Analytics {
     public static final int ELEMENTS_TESTED_COUNT = 1000;
     private Random random;
 
-    public Analytics() {
-        random = new Random();
-    }
-
     public void analyseSortingRandomData(SortingAlgorithm sortingAlgorithm) {
         long[] randomDataSortingResults = new long[ELEMENTS_TESTED_COUNT];
         random = new Random();
@@ -49,64 +45,62 @@ public class Analytics {
     }
 
     public void analyseSortingOptimisticData(SortingAlgorithm sortingAlgorithm) {
-        long[] randomDataSortingResults = new long[ELEMENTS_TESTED_COUNT];
-        random = new Random();
+        long[] optimisticDataSortingResults = new long[ELEMENTS_TESTED_COUNT];
 
         for (int i = 0; i < TESTS_FOR_EACH_N_COUNT; i++) {
             List<Double> analysed = new ArrayList<Double>();
 
             for (int j = 0; j < ELEMENTS_TESTED_COUNT; j++) {
                 if (j != 0) {
-                    analysed.add((double) j);
+                    analysed.add((double)j);
                     double[] analysedPrim = new double[analysed.size()];
                     for (int m = 0; m < analysedPrim.length; m++) {
                         analysedPrim[m] = analysed.get(m).doubleValue();
                     }
                     long duration = measureSortingTime(analysedPrim, sortingAlgorithm);
 
-                    randomDataSortingResults[j] += duration;
+                    optimisticDataSortingResults[j] += duration;
                 }
             }
         }
-        getAvgTime(randomDataSortingResults);
+        getAvgTime(optimisticDataSortingResults);
 
         if (sortingAlgorithm.getClass() == InsertionSort.class) {
-            exportDataToTxt(randomDataSortingResults, "txt_data/asc_insort.txt");
+            exportDataToTxt(optimisticDataSortingResults, "txt_data/asc_insort.txt");
         } else if (sortingAlgorithm.getClass() == QuickSort.class) {
-            exportDataToTxt(randomDataSortingResults, "txt_data/asc_qsort.txt");
+            exportDataToTxt(optimisticDataSortingResults, "txt_data/asc_qsort.txt");
         } else {
-            exportDataToTxt(randomDataSortingResults, "txt_data/asc_msort.txt");
+            exportDataToTxt(optimisticDataSortingResults, "txt_data/asc_msort.txt");
         }
     }
 
     public void analyseSortingPessimisticData(SortingAlgorithm sortingAlgorithm) {
-        long[] randomDataSortingResults = new long[ELEMENTS_TESTED_COUNT];
-        random = new Random();
+        long[] pessimisticDataSortingResults = new long[ELEMENTS_TESTED_COUNT];
 
         for (int i = 0; i < TESTS_FOR_EACH_N_COUNT; i++) {
             List<Double> analysed = new ArrayList<Double>();
 
             for (int j = 0; j < ELEMENTS_TESTED_COUNT; j++) {
                 if (j != 0) {
-                    analysed.add((double) ELEMENTS_TESTED_COUNT - j);
+                    analysed.add((double)ELEMENTS_TESTED_COUNT - j);
                     double[] analysedPrim = new double[analysed.size()];
                     for (int m = 0; m < analysedPrim.length; m++) {
                         analysedPrim[m] = analysed.get(m).doubleValue();
                     }
                     long duration = measureSortingTime(analysedPrim, sortingAlgorithm);
 
-                    randomDataSortingResults[j] += duration;
+                    pessimisticDataSortingResults[j] += duration;
                 }
             }
         }
-        getAvgTime(randomDataSortingResults);
+        getAvgTime(pessimisticDataSortingResults);
 
         if (sortingAlgorithm.getClass() == InsertionSort.class) {
-            exportDataToTxt(randomDataSortingResults, "txt_data/dsc_insort.txt");
+            exportDataToTxt(pessimisticDataSortingResults, "txt_data/dsc_insort.txt");
         } else if (sortingAlgorithm.getClass() == QuickSort.class) {
-            exportDataToTxt(randomDataSortingResults, "txt_data/dsc_qsort.txt");
+            exportDataToTxt(pessimisticDataSortingResults, "txt_data/dsc_qsort.txt");
         } else {
-            exportDataToTxt(randomDataSortingResults, "txt_data/dsc_msort.txt");
+            exportDataToTxt(pessimisticDataSortingResults, "txt_data/dsc_msort.txt");
         }
     }
 
@@ -139,4 +133,5 @@ public class Analytics {
             e.printStackTrace();
         }
     }
+    
 }
