@@ -1,0 +1,13 @@
+from matplotlib import pyplot;
+from pylab import genfromtxt;  
+mat0 = genfromtxt("../txt_data/asc_insort.txt");
+mat1 = genfromtxt("../txt_data/asc_qsort.txt");
+mat2 = genfromtxt("../txt_data/asc_msort.txt");
+pyplot.plot(mat0[:,0], mat0[:,1], label = "insort");
+pyplot.plot(mat1[:,0], mat1[:,1], label = "qsort");
+pyplot.plot(mat2[:,0], mat2[:,1], label = "msort");
+pyplot.legend();
+pyplot.title("Sorting almost sorted dataset with InsertionSort, QuickSort and MergeSort");
+pyplot.xlabel("N");
+pyplot.ylabel("t[ns]");
+pyplot.show();
