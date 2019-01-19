@@ -1,0 +1,386 @@
+1. Algorytm - instrukcja(przepis) na wykonanie określonej czynności (operacji) w skończonej liczbie kroków, dopasowany do możliwości wykonawcy.
+2. Dziedzina algorytmiczna - {Zbiór, Operacje, Relacje} np. {int, (+,/,-), (>,<,==)}
+3. Struktura danych - okresla sposób logicznego powiązania danych w pamięci.
+4. Abstrakcyjny typ danych - typ danych definiowany przez funkcjonalność np. kolejka priorytetowa.
+5.
+	tablica - 
+		kontener danych, w którym poszczególne komórki dostępne są za pomocą klucza (najczęściej wartości numerycznej). Rozmiar ustalony z góry(statyczne) albo zmieniający się (dynamiczne)
+	
+	lista liniowa SD?:
+		- jednokierunkowa: SD przechowująca elementy w określonym liniowym porządku. Elem można dodawać i usuwać w dowolnym miejscu, ale przeglądać tylko w jednym kierunku
+		-dwukierunkowa: można przeglądać w obu kierunkach
+	
+	Multilista: lista list?
+	
+	Kopiec:
+		SD oparty na drzewie binarnym (kompletne - dodajemy od lewej)
+		2 potomków
+		potomkowie mniejsi od rodzica(maksymalny)
+		albo więksi(minimalny)
+		k-index rodzica
+			lewe dziecko = 2k+1
+			prawe = 2k+2
+			Last parent index = (l.elem.-1)/2
+	
+	Drzewo binarne (SD):
+		struktura drzewa o węzłach posiadających od 0 do 2 potmoków oraz jednego rodzica, jest korzeń czyli pierwotny rodzic i liście czyli na samym dole (węzły bez potomków?)
+	
+	Graf:
+		struktura reprezentująca połączone węzły, mogą być połączone jedno lub dwukierunkowo
+	
+	Hash:
+		liczba obliczana przy pomocy funkcji skrótu, służy do indeksowania tablic, gdzie kluczem jest na przykład nie liczba a ciąg znaków.
+	
+	BST(drzewo poszukiwań binarnych):
+		drzewo binarne
+		lewy potomek węzła mniejszy
+		prawy większy
+		
+	!Drzewo AVL:
+		zbalansowane BST - lewe i prawe poddrzewo różnią się co najwyżej o 1 poziom
+	
+	Drzewo czerwono-czarne:
+		1.Węzeł albo czerwony albo czarny
+		2. Korzeń i liście zawsze czarne.
+		3. Jak węzeł czerwony to dzieci czarne.
+		4. Tyle samo czarnych węzłów na ścieżce z ustalonego węzła do liścia. Stałą głębokość, szybciej się znajduje i wiemy jak czybko znajdujemy.
+	
+6. 
+	Kontener:
+		Zorganizowany sposób przechowywania danych.
+		Kontener oferuje funkcje dostępu do danych: 
+			dodawania,
+			usuwania,
+			wyszukiwania.
+	
+	Kolejka: liniowa struktura danych
+		LIFO last in first out (Stos)
+		FIFO first in first out
+		Priorytetowa elementy uporządkowane według priorytetu
+	
+	Stos - kolejka LIFO
+	
+	Słownik(mapa):
+		SD zawierająca pary ( klucz; wartość ),
+		gdzie klucz może być ciągiem znaków ( wykorzystanie hash mapy ).
+	
+7.
+	! Formalne dowodzenie algorytmu:
+		Sprawdzamy czy dla danych spełniających warunek alpha każde wykonanie algorytmu prowadzi(w skończonym czasie) do danych spełniających warunek beta.
+		
+	Warunek początkowy alpha:
+		Warunek dla poprawnych danych wejściowych, aby algorytm działał poprawnie.
+	
+	Warunek końcowy beta:
+		Warunek dla poprawnych danych wyjściowych poprawnie działającego algorytmu.
+
+8. ! Własności algorytmu, jak je sprawdzamy:
+	Własność stopu - czy algorytm wykona skończoną ilość kroków dla każdej danej spełniającej alpha.
+		Sprawdzenie:
+			np. patrzymy czy pętla się skończy
+	
+	Własność okresloności:
+		Algorytm nie wykonuje operacji o nieokreślonym wyniku.
+			Sprawdzenie:
+				szukanie niebezpiecznych sytuacji jak indexowanie tablicy, czy dzielenie przez zero itd.
+	
+	Własność częściowej poprawności:
+		Dla danych wejściowych spełniających alpha zwraca dobre dane spełniające beta. (dobre dane -> dobry wynik)
+			Sprawdzenie:
+				czasem wykorzystujemy niezmiennik pętli
+				
+9. ! Niezmiennik pętli:
+		technika dowodzenia poprawności algorytmów zawierających pętle
+		warunek spełniony w każdym przebiegu pętli
+		wykorzystywany do analizy poprawności pętli w programie
+		działa jak założenie indukcyjne do dowodzenia poprawności algorytmu (aby dowieść że z alfa -> beta)
+	
+10. Formalne określenie złożoności obliczeniowej:
+		Koszt algorytmu to: czas(czasowa) i pamięć(obliczeniowa)
+		
+		Formalnie:
+			O(f(n)) to zbiór wszystkich funkcji K(n), 
+			dla których istnieją pary C, N,
+			takie, że dla prawie wszystkich n >= N
+			K(n) <= C * f(n)
+		
+		Notacje: (https://forum.pasja-informatyki.pl/350029/notacja-omega-i-duze-theta)
+			- wielkiego
+					O: O(f(n)) pesymistyczny przypadek
+			- Omega:
+					Ω(f(n)) przynajmniej pewna ilość czasu bez omawiania górnej granicy
+			- Theta: (https://pl.khanacademy.org/computing/computer-science/algorithms/asymptotic-notation/a/big-big-theta-notation)
+					Kiedy mówimy, że określony czas wykonania wynosi Θ(n), mówimy, że kiedy n stanie się wystarczające duże, czas wykonania wynosi, co najmniej k1*n i co najwyżej k2*n,  dla niektórych stałych k1 oraz k2.
+
+11. Najgorszy przypadek:
+		- przypadek w którym algorytm będzie pracował najdłużej z możliwych przypadków.
+		Na przykład sortowanie bąbelkowe tablicy, która jest posortowana odrotnie.
+		
+12.
+	Algorytm o złożoności f(n) przetwarza dane o wielkości N w czasie T, jak długo będzie ten algorytm przetwarzał dane o długości k*N? (Zadanie będzie uszczegółowione prze podanie np. f(n) = n^2, N = 10000, T=1 sekunda, k=10).
+
+13. Wyszukiwanie sekwencyjne
+		porównuj każdy element kolejno od początku do momentu znalezienia wyszukiwanego lub zakończenia tablicy. Zwracaj indeks elementu.
+
+14. Wyszukiwanie metodą bisekcji:
+		wyszukiwanie binarne
+		wyłącznie na tablicach posortowanych
+			Wyznacz środek przedziału tablicy
+			sprawdź czy element jest większy, równy lub większy od poszukiwanego
+			jeżeli <> wybierz odpowiednio lewą lub prawą stronę przedziału, traktując go jako nowy przedział
+			powtarzaj kroki od początku, do momentu znalezienia wyszukiwanego elementu.
+
+15. Sortowanie przez wstawianie (insertion sort):
+		tablica
+		z lewej posortowane
+		z prawej nieposortowane
+		z prawej wstawiamy na lewą w odpowiednie miejsce
+		przesuwając elementy lewej w prawo
+
+16. Sortowanie szybkie (quick sort):
+		wybieramy element z tablicy
+		przesuwamy wszystkie pozostałe elementu mniejsze na lewą stronę
+		pozostałe większe na prawą
+		to samo dla lewego i prawego przedziału
+
+17. Sortowanie przez scalanie (merge sort):
+		podziel na dwie części, podziel na dwie części podziel na dwie części..... aż zostanie po jednym  w zbiorze
+		scal sąsiednie zbiory....... aż cała tablica
+		
+18. Sortowanie przez kopcowanie
+	robimy kopiec
+	bierzemy element z korzenia
+	na miejsce korzenia wstawiamy ostatni element kopca
+	odtwarzamy strukture drzewa.....
+	
+19. Dodawanie elementu do kopca
+	Dodajemy na koniec kopaca
+	jeżeli element jest mniejszy/większy od rodzica to zamieniamy miejscami
+	
+20. Usuwanie elementu z kopca:
+	1. Nie posiada dzieci = po prsotu usuń
+	2. Jedno dziecko = zastąp
+	3. dwoje dzieci = wstaw lewe to najbardzie j lewego poddrzewa prawego dziacka lub odwrotnie
+	
+21. Easy (ale w środku na końcu czy na początku) (na liści liniowej algorytmy)
+
+22. algorytmy przy bst wstaw, usun , znajdz
+
+23.  BST:
+	szukanie, dodawnaie, usuwanie log2(n) - obliczeniowa a pamieciowa to nlog2(n)
+	
+	hash table:
+	szukanie dodawanie usuwanie - obliczeniowa = 1; pamięciowa O(n)
+	
+24. Żeby szybko znajdowac elementy
+
+25.
+	Ścisle wyważone: liczba elementów w prawym i lewym poddrzewie (zaczynającym się z dowolnego węzła) różni sie co najwyżej o 1;
+	
+	Avl wywazone: -''- różnią się co najwyżej o 1 poziom
+	
+	Czerwono czarne: liczba elem. z dowolnego węzła do dowolnego liścia ma zawsze tyle samo czarnych węzłów (znana zawsze głębokośc)
+
+26. 
+Element nadrzędny leci do prawej lub lewej gałęzi elementu, a element staje się nadrzędny
+https://www.youtube.com/watch?v=O5Yl-m0YbVA
+
+27. Haszowanie:
+	kodowanie kluczy dla wartości przechowywanych w tablicy mieszającej
+
+	Tablica mieszająca - szybki dostęp, funkcja skrótu określa na podstawie klucza index tablicy
+	
+28. Funkcja haszująca -> funkcja oblicząca hash dla klucza
+
+29. 	
+	modularne: k%liczba pierwsza
+	przez mnożenie: k * niewymierna (ucinamy końcówke)
+	uniwersalne:
+		losujemy ciąg m1, m2, m3, m4, m5.....mp (1 raz)
+		dla klucza k gdzie ki to l itery klucza: (Suma ki*mi)
+
+30. 
+	Kolizja w haszowaniu to ta sama wartośc obliczona z funkcji skrótu dla dwóch różnych kluczy
+	
+31. Metoda łańcuchowa rozwiązywania kolizjii:
+		elementy o tym samym hashu znajdują się na liście
+32. 
+	Adresowanie otwarte:
+			w przypadku kolizjii oblicza się kolejny hash aż się znajdzie miejsce w tablicy
+			kolejny hash można obliczać na przykład dodając numer próby na koniec
+33. !
+	Adresowanie liniowe
+	
+	Adresowanie kwadratowe
+	
+	Hashowanie podwójne
+	
+34. ! Dlaczego w Javie jest TreeSet i HashSet?
+
+35
+	Jaka jest złożoność obliczeniowa operacji wykonywanych na zbiorze (słowniku) zaimplementowanym za pomocą hasza (drzewa czerwono-czarnego)?
+	O(log(n))
+	
+36. Jakieś dwie implementacje kolejki priorytetowej
+	Kopiec -- szybkie wyszukiwanie, wolniejsze budowanie
+	Lista liniwoa -- wolniejsze szukanie szybsze budowanie
+37. 
+	BST to struktura danych bo określa sposób logicznego ułożenia danych w pamieci.
+	Pomimo tego że do implementacji używamy tablicy czyli innej struktury danych to i tak BST okresla nam jak logiczny porządek
+	
+38. !
+	Najlepsze sposoby implememntacji
+
+39. !
+	Algorytmy słownikowe = podciągi komunikatu występujące w słowniku są zastępowane ich numerem indeksu w słowniku.
+	
+	Algorytmy stohastyczne = częściej występujące symbole są kodowane na mniejszej ilości bitów, oparte na danych statystycznych
+	
+40. 
+	Algorytm Huffmana
+		1. Lista drzew na razie tylko o korzeniu: znak i prawdopodobieństwo wystąpienia
+		2. Dwa drzewa o najmniejszym prawdopodobieństwie złącz w jedno dodając prawdopodobieństwo (to kolejny rodzic)
+			do rodzica dołącz oba drzewa mniejsz z lewej większe z prawej.
+		3. powtarzaj aż będize tylko jeden korzeń 
+
+	O(n*lg(n)
+
+41. !!!!
+		# nie trzeba zapamietywać słowników, zostana odtworzone przez dekoder
+		LZ77
+			Zapamietać w słowniku pewną ilosc danych początkowych (podzielić na ciągi, nadać indeksy)
+			Jeśli w pliku powtórzy się jakiś ciąg to przechować jego indeks oraz długość.
+			koduje (index początku podciagu, długość, symbol po podciągu)
+			* do słowinka wchodzi pewna część danych początkwych (stała wielkosc słowanika)
+			** algorytm dobry dla danych które się często powatarzają
+		
+		LZ78
+			LZ77 +
+					zewnętrzny słownik
+					słownik rozszerzany w miare potrzeby, tak że żaden przetworzony ciąg nie jest tracony
+					znajduje najdłuższe słowo będące prefiksem niezakodowanych danych
+					koduje tak:
+							wikipedia -> "wiki"(jest w sowniki pod indexem 2) ---> (2,p)
+		
+		LZW
+			wariant LZ78
+						na starcie wypełnia słownik wszystkimi możliwymi symbolami (choćby jednoliterowymi)
+						koduje już samymi indexami
+		
+		LZSS
+			ulepszony LZ77
+							koduje tylko (index początku podciągu, i długość)
+		
+		LZC
+			
+
+42.
+		Move to front
+			mamy słownik znaków
+			czytamy po jednym znaku z tekstu
+			przesuwamy ten znak na początek słownika
+			dzięki temu częściej występujące znaki mają niższe indexy, co jest przydatne przy kompresji
+			?dzięki temu szybciej znajdujemy w słowniku częściej powtarzające się znaki
+
+43.	???Tworzy słownik????
+	Transformata Burrowsa-Wheelera (https://pl.wikipedia.org/wiki/Transformata_Burrowsa-Wheelera)
+		Można odtworzyć pierwotne dane.
+		
+		1. Wykonujemy N rotacji ciągu (numerujemy je)
+		2. Sortujemy według wartości pierwszego bajtu (zachowujemy numer rotacji i aktualną pozycje)
+		
+		Dane poddane tej transfomacji dają się lepiej skompresować za pomoca klasycznych algorytmów kompresji.
+
+44. ??
+	Bzip2
+	kompresja danych (od 100 do 900 kilobajtów, bloki co 100 kilobajtów)
+	Każdy blok:
+		1. Transformata_Burrowsa-Wheelera
+		2. Move to front
+		3. Algorytm Huffmana.
+		
+45.
+	Macierz sąsiedztwa
+		tablica NxN N - liczba wierzchołków w grafie
+		'i' wiersze to wierzchołki startowe krawędzi
+		'j' kolumny to wierzchołki końcowe krawędzi
+		jak komórka A[ij] ma wartośc 1 to krawędź istenieje
+	
+	Lista sąsiedztwa
+		tablica N - liczba wierzchołków
+		indexy = wierzchołki startowe
+		w indexach przechowywane listy wierzchołków końcowych
+
+46.
+	 Drzewo rozpinające - zawiera wszystkie krawędzie grafu
+	 
+	 Minimalne drzewo rozpinające - drzewo rozpinające, suma wag krawędzi jest najmnijesza ze wszystkich pozostałych drzew rozpinajacych danego grafu.
+	 
+47. 	
+
+	(https://eduinf.waw.pl/inf/alg/001_search/0141.php)
+
+	Algorytm zachłanny = najlepsze rozwiązanie w danym momencie
+	
+	Algorytm Kruskala:
+			1. Pusty zbiór krawędzi T
+			2. Lista L wszystkich krawędzi, uporządkowana rosnąco
+			3. Dopóki w T nie ma wszystkich wierzchołków grafu:
+				a. wybierz z listy L krawędź
+				b. jesli nie tworzy ona cyklu z krawędziami już obecnymi w T, to dodajemy do T
+			Po zakończeniu pracy w T jest MDR
+			
+	
+	Algorytm Prima:
+		1. Wybierz dowolny wierzchołek startowy
+		2. Wybierz wychodzącą z niego krawędź o najmniejszej wadze, dodaj ją do drzewa.
+		3. Przejdź do wierzchołka na końcu tej krawędziami.
+		4. Powtarzaj dopóki drzewo nie pokryje całego grafu.
+
+		
+	Algorytmy te działają tylko w danym momencie, jeśli dodamy do grafu wierzchołek należy wykonać operacje od nowa.
+
+48. 
+	BFS: (wszerz)
+		Poziom po poziomie
+		1. Sprawdź korzeń
+		2. Sprawdź dzieci korzenia.
+		3. Sprawdź dzieci dzieci korzenia.
+		.....
+		aż znajdzie
+		
+	DFS: (w głąb)
+		1. Zbadaj krawędź wierzchołka i wszystkie jej krawędzie.
+		
+		Rysunek: https://pl.wikipedia.org/wiki/Przeszukiwanie_w_g%C5%82%C4%85b
+		
+49. 
+Dijksrta:
+	1. Wybierz początkowy węzeł;
+	2. Sprawdź krawędzie i nadaj wierzchołkom końcowym wage z krawędzi
+	3. Przejdź do wierzchołka o najmniejszej wadze
+	4. Sprawdź krawędzie i nadaj wierzchołkom końcowym wage z krawędzi jeśli nie były odwiedzone:
+		a. zsumuj koszt dotarcia do obecnego węzła i koszt dotarcia z tego węzła do węzła końcowego krawędzi.
+		b. jeśli koszt jest mniejszy to nadaj
+	5. Przejdź krawędzią o najmniejszym koszcie.
+	
+50. !
+	Rabina-Karpa
+			mamy wzorzec 
+			obliczamy jego długość
+			obliczamy hash wzorca
+			robimy "okienko" na tekście (okienko długości wzorca)
+			obliczamy hash okienka
+			porównujemy hashe
+			przesuwamy sie o jeden w prawo z okienkiem
+
+	
+	Algorytm Knutha-Morrisa-Pratta (KMP)
+			http://algorytmika.wikidot.com/kmp
+			
+	Booyera-Moore'a
+	
+51. 
+			
+	
+		
