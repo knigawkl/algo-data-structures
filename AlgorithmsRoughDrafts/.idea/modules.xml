@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AlgoRoughDrafts.iml" filepath="$PROJECT_DIR$/AlgoRoughDrafts.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AlgorithmsRoughDrafts.iml" filepath="$PROJECT_DIR$/AlgorithmsRoughDrafts.iml" />
     </modules>
   </component>
 </project>
